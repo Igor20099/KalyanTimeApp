@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">KalyanTimeApp</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Лог</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string-array name="tables">
+        <item>Все</item>
+        <item>Стол 1</item>
+        <item>Стол 2</item>
+        <item>Стол 3</item>
+        <item>Стол 4</item>
+        <item>Стол 5</item>
+        <item>Стол 6</item>
+        <item>Стол 7</item>
+        <item>Стол 8</item>
+        <item>Стол 9</item>
+        <item>Стол 10</item>
+    </string-array>
+</resources>

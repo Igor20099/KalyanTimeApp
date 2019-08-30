@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FIlterActivity"
+    android:layout_gravity="center"
+    >
+
+    <CalendarView
+        android:id="@+id/calendarViewFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseDateTextView" />
+
+    <TextView
+        android:id="@+id/chooseDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp"
+        android:text="ВЫБЕРИТЕ ДАТУ"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chooseRommTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="124dp"
+        android:text="ВЫБЕРИТЕ ЗАЛ"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/chooseDateTextView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkBoxRoomOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="36dp"
+        android:text="ЗАЛ 1"
+        app:layout_constraintEnd_toStartOf="@+id/checkBoxRoomTwo"
+        app:layout_constraintStart_toEndOf="@id/calendarViewFilter"
+        app:layout_constraintTop_toBottomOf="@+id/chooseRommTextView" />
+
+    <CheckBox
+        android:id="@+id/checkBoxRoomTwo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:text="ЗАЛ 2"
+        app:layout_constraintStart_toEndOf="@id/checkBoxRoomOne"
+        app:layout_constraintTop_toBottomOf="@+id/chooseRommTextView" />
+
+    <TextView
+        android:id="@+id/chooseTableTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="28dp"
+        android:text="ВЫБЕРИТЕ СТОЛ"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/calendarViewFilter"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxRoomTwo" />
+
+    <Spinner
+        android:id="@+id/spinnerTables"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="20dp"
+        android:entries="@array/tables"
+        app:layout_constraintStart_toEndOf="@+id/calendarViewFilter"
+        app:layout_constraintTop_toBottomOf="@+id/chooseTableTextView" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:onClick="onClickShowResult"
+        android:text="ПОКАЗАТЬ РЕЗУЛЬТАТ"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintStart_toEndOf="@+id/calendarViewFilter"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTables" />
+
+</android.support.constraint.ConstraintLayout>
