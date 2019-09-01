@@ -1,33 +1,27 @@
 package com.joymaker.kalyantimeapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 
+import com.joymaker.kalyantimeapp.dialog.DialogCreatePassword;
+import com.joymaker.kalyantimeapp.dialog.DialogPassword;
+import com.joymaker.kalyantimeapp.dialog.DialogPasswordSetTime;
 import com.joymaker.kalyantimeapp.fragments.FirstRoomTablesFragment;
 import com.joymaker.kalyantimeapp.fragments.SecondRoomTablesFragment;
 
 public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener{
 
-
+    private Context context;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -41,14 +35,14 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.inflateMenu(R.menu.menu_main2);
         toolbar.setOnMenuItemClickListener(this);
-
+        context = getApplicationContext();
+        LogUtills.getInstance().writeLog(this,"hello");
         viewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         Context context;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences.edit().putString("password","").apply();
