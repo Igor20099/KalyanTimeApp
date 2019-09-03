@@ -11,6 +11,7 @@ import com.joymaker.kalyantimeapp.R;
 import com.joymaker.kalyantimeapp.statetable.TableIsDone;
 import com.joymaker.kalyantimeapp.statetable.TableIsFree;
 import com.joymaker.kalyantimeapp.statetable.TableIsMake;
+import com.joymaker.kalyantimeapp.statetable.TableService;
 import com.joymaker.kalyantimeapp.statetable.TableState;
 import com.joymaker.kalyantimeapp.utills.DateAndTimeUtills;
 
@@ -18,9 +19,11 @@ import java.util.Locale;
 
 public class Table implements ITable {
     Context context;
+
     public String getNameTable() {
         return this.numberTableTextView.getText().toString();
     }
+
     private CardView tableCardView;
     private String roomTables;
     private TableState tableState;
@@ -28,6 +31,12 @@ public class Table implements ITable {
     private TextView tableStateTextView;
     private CountDownTimer countDownTimer;
     private long countTime;
+    private String state;
+
+    public void setState(String state) {
+        this.state =state;
+    }
+
     private TextView timeTableTextView;
 
     public String getTstate() {
@@ -42,8 +51,27 @@ public class Table implements ITable {
         } else if (tableState instanceof TableIsMake) {
             this.tableStateTextView.setText("Подготовка");
         } else if (tableState instanceof TableIsDone) {
-            this.tableStateTextView.setText("Занят");
+            this.tableStateTextView.setText("Кальян готов");
+        } else if (tableState instanceof TableService) {
+            if (tableStateTextView.getText().toString().equals("Сервис 1")) {
+                this.tableStateTextView.setText("Сервис 2");
+            } else if (tableStateTextView.getText().toString().equals("Сервис 2")) {
+                this.tableStateTextView.setText("Сервис 3");
+            }else if (tableStateTextView.getText().toString().equals("Сервис 3")) {
+                this.tableStateTextView.setText("Сервис 4");
+            }
+            else if (tableStateTextView.getText().toString().equals("Сервис 4")) {
+                this.tableStateTextView.setText("Сервис 5");
+            }
+            else if (tableStateTextView.getText().toString().equals("Сервис 5")) {
+                this.tableStateTextView.setText("Сервис 6");
+            }
+
+            else {
+                this.tableStateTextView.setText("Сервис 1");
+            }
         }
+
     }
 
     public String getRoomTables() {
@@ -96,5 +124,30 @@ public class Table implements ITable {
         timeTableTextView.setVisibility(View.INVISIBLE);
         String time = String.format(Locale.getDefault(), " | Время за которое сделан кальян: %02d:%02d", (countTime / 60000), (countTime % 60000 / 1000));
         return time;
+    }
+
+    public void starServiceTimer() {
+        timeTableTextView.setVisibility(View.VISIBLE);
+        final long time = DateAndTimeUtills.getInstance().getAllTime(context);
+        countDownTimer = new CountDownTimer(time, 1000) {
+            @Override
+            public void onTick(long l) {
+                countTime += 1000;
+                timeTableTextView.setText(String.format(Locale.getDefault(), "%02d:%02d", (l / 60000), (l % 60000 / 1000)));
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        }.start();
+    }
+
+    public void stopTimerService() {
+        countDownTimer.cancel();
+        timeTableTextView.setTextColor(Color.BLACK);
+        timeTableTextView.setVisibility(View.INVISIBLE);
+        String time = String.format(Locale.getDefault(), " | Время за которое сделан кальян: %02d:%02d", (countTime / 60000), (countTime % 60000 / 1000));
+
     }
 }

@@ -31,7 +31,7 @@ public class DateAndTimeUtills {
    public long getAllTime(Context context) {
         long allTime;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String t = sharedPreferences.getString("totaltime","60");
+        String t = sharedPreferences.getString("totaltime","10");
         int min = Integer.parseInt(t);
         allTime = min * 60000L;
         return allTime;

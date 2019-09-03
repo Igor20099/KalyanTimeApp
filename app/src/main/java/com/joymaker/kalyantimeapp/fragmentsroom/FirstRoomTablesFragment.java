@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.joymaker.kalyantimeapp.alertdialog.AlertDialogKalyanIsDone;
 import com.joymaker.kalyantimeapp.alertdialog.AlertDialogKalyanIsFree;
+import com.joymaker.kalyantimeapp.alertdialog.AlertDialogStartService;
+import com.joymaker.kalyantimeapp.dialog.DialogOrder;
 import com.joymaker.kalyantimeapp.factory.FactoryTable;
 import com.joymaker.kalyantimeapp.factory.IFactoryTable;
 import com.joymaker.kalyantimeapp.table.ITable;
@@ -21,7 +23,7 @@ import java.util.ArrayList;
 
 public class FirstRoomTablesFragment extends android.support.v4.app.Fragment {
     private ArrayList<ITable> tablesTest;
-
+    AlertDialog alertDialogSerive;
     private ArrayList<ITable> getAllTables(View view) {
         ArrayList<ITable> tables = new ArrayList<>();
         IFactoryTable factoryTable = new FactoryTable();
@@ -50,17 +52,45 @@ public class FirstRoomTablesFragment extends android.support.v4.app.Fragment {
                 public void onClick(View view) {
                     switch (((Table) tab).getTstate()) {
                         case "Свободен":
-                            ((Table) tab).setTableState(new TableIsMake());
-                            ((Table) tab).startState();
+                            DialogOrder dialogOrder = new DialogOrder();
+                            dialogOrder.setTable(tab);
+                            dialogOrder.show(getFragmentManager(),"order");
+
                             break;
                         case "Подготовка":
                             AlertDialog alertDialogIsDone = AlertDialogKalyanIsDone.getAlertDialogIsDone(getContext(),tab);
                             alertDialogIsDone.show();
                             break;
-                        case "Занят":
-                            AlertDialog alertDialogIsFree = AlertDialogKalyanIsFree.getAlertDialogIsFree(getContext(),tab);
-                            alertDialogIsFree.show();
+                        case "Кальян готов":
+                            alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
+                            alertDialogSerive.show();
                             break;
+                        case "Сервис 1":
+                            alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
+                            alertDialogSerive.show();
+                            break;
+                        case "Сервис 2":
+                            alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
+                            alertDialogSerive.show();
+                            break;
+                        case "Сервис 3":
+                            alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
+                            alertDialogSerive.show();
+                            break;
+                        case "Сервис 4":
+                            alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
+                            alertDialogSerive.show();
+                            break;
+                        case "Сервис 5":
+                            alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
+                            alertDialogSerive.show();
+                            break;
+                        case "Сервис 6":
+                            AlertDialog alertDialogKalyanIsFree = AlertDialogKalyanIsFree.getAlertDialogIsFree(getContext(),tab);
+                            alertDialogKalyanIsFree.show();
+                            break;
+
+
                     }
                 }
             });

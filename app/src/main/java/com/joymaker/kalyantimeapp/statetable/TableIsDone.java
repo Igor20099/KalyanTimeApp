@@ -11,7 +11,7 @@ public class TableIsDone implements TableState {
     @Override
     public void doIt(Context context, ITable table) {
        String time =  table.stopTimerAndGetTime();
-        String data = String.format(" | %s | %s | Статус: ЗАНЯТ%s\n",((Table)table).getRoomTables(),((Table)table).getNameTable(),time);
+        String data = String.format(" | %s | %s | Статус: Кальян готов%s\n",((Table)table).getRoomTables(),((Table)table).getNameTable(),time);
         LogUtills.getInstance().writeLog(context,data,Context.MODE_APPEND);
     }
 }
