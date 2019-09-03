@@ -1,4 +1,4 @@
-package com.joymaker.kalyantimeapp;
+package com.joymaker.kalyantimeapp.adapter;
 
 
 import android.support.v4.app.Fragment;

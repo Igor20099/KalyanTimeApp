@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.joymaker.kalyantimeapp.LogActivity;
+import com.joymaker.kalyantimeapp.activity.LogActivity;
 import com.joymaker.kalyantimeapp.R;
 
 public class DialogPassword extends DialogFragment {

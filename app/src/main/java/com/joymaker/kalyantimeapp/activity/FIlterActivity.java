@@ -1,4 +1,4 @@
-package com.joymaker.kalyantimeapp;
+package com.joymaker.kalyantimeapp.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -6,11 +6,18 @@ import android.icu.util.Calendar;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.joymaker.kalyantimeapp.R;
+import com.joymaker.kalyantimeapp.utills.DateAndTimeUtills;
+import com.joymaker.kalyantimeapp.utills.LogUtills;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -26,9 +33,19 @@ public class FIlterActivity extends AppCompatActivity {
     private CheckBox checkBoxRoomOne;
     private CheckBox checkBoxRoomTwo;
     private Spinner spinnerTables;
-    StringBuffer stringBuffer;
-    String date;
+    private String date;
+    private Toolbar toolbar;
+    private String filterLog;
+    private String log;
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,22 +55,12 @@ public class FIlterActivity extends AppCompatActivity {
         checkBoxRoomOne = findViewById(R.id.checkBoxRoomOne);
         checkBoxRoomTwo = findViewById(R.id.checkBoxRoomTwo);
         spinnerTables = findViewById(R.id.spinnerTables);
-        date = getCurrentDate();
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new InputStreamReader(
-                    openFileInput("log.txt")));
-            stringBuffer = new StringBuffer();
-            String str = "";
-            // читаем содержимое
-            while ((str = br.readLine()) != null) {
-                stringBuffer.append(str).append("\n");
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        toolbar = findViewById(R.id.toolbar3);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        date = DateAndTimeUtills.getInstance().getCurrentDate();
+        log = LogUtills.getInstance().readLog(this);
 
         calendarViewFilter.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -71,7 +78,6 @@ public class FIlterActivity extends AppCompatActivity {
     }
 
     public void onClickShowResult(View view) {
-        String log = stringBuffer.toString();
         String regex = "";
         String table = spinnerTables.getSelectedItem().toString();
         if ((checkBoxRoomOne.isChecked() && checkBoxRoomTwo.isChecked() && table.equals("Все")) || (!checkBoxRoomOne.isChecked() && !checkBoxRoomTwo.isChecked() && table.equals("Все"))) {
@@ -109,22 +115,24 @@ public class FIlterActivity extends AppCompatActivity {
 
 
         Pattern pattern = Pattern.compile(regex);
-        CharSequence input;
         Matcher matcher = pattern.matcher(log);
         StringBuilder stringBuilder = new StringBuilder();
         while (matcher.find()) {
             stringBuilder.append(matcher.group(0)).append("\n");
         }
-        String filterLog = stringBuilder.toString();
+        filterLog = stringBuilder.toString();
         Intent intent = getIntent();
         intent.putExtra("filterlog", filterLog);
         setResult(RESULT_OK, intent);
         finish();
     }
 
-    private String getCurrentDate() {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat dateformat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-        return dateformat.format(c.getTime());
+
+    public void onClickResetFilter(View view) {
+        filterLog = LogUtills.getInstance().readLog(this);
+        Intent intent = getIntent();
+        intent.putExtra("filterlog", filterLog);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

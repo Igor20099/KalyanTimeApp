@@ -4,85 +4,164 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FIlterActivity"
     android:layout_gravity="center"
-    >
+    android:background="@color/cardview_dark_background"
+    tools:context=".activity.FIlterActivity">
 
-    <CalendarView
-        android:id="@+id/calendarViewFilter"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar3"
+        style="@style/Toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseDateTextView" />
-
-    <TextView
-        android:id="@+id/chooseDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:text="ВЫБЕРИТЕ ДАТУ"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/chooseRommTextView"
+    <android.support.v7.widget.CardView
+        android:id="@+id/dateCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="124dp"
-        android:text="ВЫБЕРИТЕ ЗАЛ"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/chooseDateTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar3">
 
-    <CheckBox
-        android:id="@+id/checkBoxRoomOne"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <CalendarView
+                android:id="@+id/calendarViewFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chooseDateTextView" />
+
+            <TextView
+                android:id="@+id/chooseDateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="ВЫБЕРИТЕ ДАТУ"
+                android:textColor="@android:color/background_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/RoomCardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@id/dateCardView"
+        app:layout_constraintTop_toBottomOf="@id/toolbar3">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp">
+
+            <CheckBox
+                android:id="@+id/checkBoxRoomOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:text="Зал 1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chooseRommTextView" />
+
+            <CheckBox
+                android:id="@+id/checkBoxRoomTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="Зал 2"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.162"
+                app:layout_constraintStart_toEndOf="@+id/checkBoxRoomOne"
+                app:layout_constraintTop_toBottomOf="@+id/chooseRommTextView" />
+
+            <TextView
+                android:id="@+id/chooseRommTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ВЫБЕРИТЕ ЗАЛ"
+                android:textColor="@android:color/background_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/tableCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="36dp"
-        android:text="ЗАЛ 1"
-        app:layout_constraintEnd_toStartOf="@+id/checkBoxRoomTwo"
-        app:layout_constraintStart_toEndOf="@id/calendarViewFilter"
-        app:layout_constraintTop_toBottomOf="@+id/chooseRommTextView" />
+        android:padding="16dp"
+        app:layout_constraintStart_toEndOf="@id/dateCardView"
+        app:layout_constraintTop_toBottomOf="@id/RoomCardView">
 
-    <CheckBox
-        android:id="@+id/checkBoxRoomTwo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:text="ЗАЛ 2"
-        app:layout_constraintStart_toEndOf="@id/checkBoxRoomOne"
-        app:layout_constraintTop_toBottomOf="@+id/chooseRommTextView" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp">
 
-    <TextView
-        android:id="@+id/chooseTableTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:text="ВЫБЕРИТЕ СТОЛ"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/calendarViewFilter"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxRoomTwo" />
+            <Spinner
+                android:id="@+id/spinnerTables"
+                style="@style/Widget.AppCompat.Light.DropDownItem.Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:entries="@array/tables"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chooseTableTextView" />
 
-    <Spinner
-        android:id="@+id/spinnerTables"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="20dp"
-        android:entries="@array/tables"
-        app:layout_constraintStart_toEndOf="@+id/calendarViewFilter"
-        app:layout_constraintTop_toBottomOf="@+id/chooseTableTextView" />
+            <TextView
+                android:id="@+id/chooseTableTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="ВЫБЕРИТЕ СТОЛ"
+                android:textColor="@android:color/background_dark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
 
     <Button
         android:id="@+id/button"
@@ -90,12 +169,24 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
         android:onClick="onClickShowResult"
         android:text="ПОКАЗАТЬ РЕЗУЛЬТАТ"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.032"
-        app:layout_constraintStart_toEndOf="@+id/calendarViewFilter"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerTables" />
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toEndOf="@id/dateCardView"
+        app:layout_constraintTop_toBottomOf="@+id/tableCardView" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="180dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:onClick="onClickResetFilter"
+        android:text="СБРОСИТЬ ФИЛЬТР"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintStart_toEndOf="@id/dateCardView"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 </android.support.constraint.ConstraintLayout>
