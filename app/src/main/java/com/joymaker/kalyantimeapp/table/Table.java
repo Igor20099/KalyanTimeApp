@@ -30,8 +30,11 @@ public class Table implements ITable {
     private TextView numberTableTextView;
     private TextView tableStateTextView;
     private CountDownTimer countDownTimer;
+    private CountDownTimer upDownTimer;
     private long countTime;
     private String state;
+    private boolean isUpTimer=false;
+    long time;
 
     public void setState(String state) {
         this.state =state;
@@ -51,7 +54,7 @@ public class Table implements ITable {
         } else if (tableState instanceof TableIsMake) {
             this.tableStateTextView.setText("Подготовка");
         } else if (tableState instanceof TableIsDone) {
-            this.tableStateTextView.setText("Кальян готов");
+            this.tableStateTextView.setText("Готов");
         } else if (tableState instanceof TableService) {
             if (tableStateTextView.getText().toString().equals("Сервис 1")) {
                 this.tableStateTextView.setText("Сервис 2");
@@ -102,8 +105,9 @@ public class Table implements ITable {
     }
 
     public void startTimer() {
+
         timeTableTextView.setVisibility(View.VISIBLE);
-        final long time = DateAndTimeUtills.getInstance().getAllTime(context);
+         time = DateAndTimeUtills.getInstance().getAllTime(context);
         countDownTimer = new CountDownTimer(time, 1000) {
             @Override
             public void onTick(long l) {
@@ -113,17 +117,26 @@ public class Table implements ITable {
 
             @Override
             public void onFinish() {
-
+               isUpTimer= startUpTimer();
             }
         }.start();
     }
 
     public String stopTimerAndGetTime() {
         countDownTimer.cancel();
+        if(isUpTimer) {
+            upDownTimer.cancel();
+        }
         timeTableTextView.setTextColor(Color.BLACK);
         timeTableTextView.setVisibility(View.INVISIBLE);
-        String time = String.format(Locale.getDefault(), " | Время за которое сделан кальян: %02d:%02d", (countTime / 60000), (countTime % 60000 / 1000));
-        return time;
+        String timeStr ="";
+            if(countTime<=time ) {
+                timeStr = String.format(Locale.getDefault(), " | Время за которое сделан кальян: %02d:%02d", (countTime / 60000), (countTime % 60000 / 1000));
+            } else if (countTime > time) {
+                timeStr = String.format(Locale.getDefault(), " | ПРЕВЫШЕНО ВРЕМЯ ПОГОТОВКИ НА: %02d:%02d | Время за которое сделан кальян: %02d:%02d",((countTime - time) / 60000), ((countTime - time) % 60000 / 1000), (countTime / 60000), (countTime % 60000 / 1000));
+            }
+            countTime=0;
+        return timeStr;
     }
 
     public void starServiceTimer() {
@@ -138,16 +151,51 @@ public class Table implements ITable {
 
             @Override
             public void onFinish() {
-
+                isUpTimer= startUpTimer();
             }
         }.start();
     }
 
-    public void stopTimerService() {
+    public String stopTimerService() {
         countDownTimer.cancel();
+        String timeStr ="";
+        if(isUpTimer) {
+            upDownTimer.cancel();
+        }
         timeTableTextView.setTextColor(Color.BLACK);
         timeTableTextView.setVisibility(View.INVISIBLE);
-        String time = String.format(Locale.getDefault(), " | Время за которое сделан кальян: %02d:%02d", (countTime / 60000), (countTime % 60000 / 1000));
+        if (countTime <= time) {
+            timeStr = String.format(Locale.getDefault(), " | %s | %s | Cтатус: Завершен %s | Время сервиса: %02d:%02d\n", this.getRoomTables(), this.getNameTable(), this.tableStateTextView.getText().toString(), (countTime / 60000), (countTime % 60000 / 1000));
 
+        } else if (countTime > time) {
+            timeStr = String.format(Locale.getDefault(), " | %s | %s | Cтатус: Завершен %s |ПРЕВЫШЕНО ВРЕМЯ СЕРВИСА НА: %02d:%02d | Время сервиса: %02d:%02d\n",this.getRoomTables(),this.getNameTable(),this.tableStateTextView.getText().toString(),((countTime - time) / 60000), ((countTime - time) % 60000 / 1000), (countTime / 60000), (countTime % 60000 / 1000));
+        }
+        countTime = 0;
+        return timeStr;
+
+    }
+    public boolean startUpTimer() {
+        upDownTimer = new CountDownTimer(Integer.MAX_VALUE,1000) {
+            int min = 0;
+            int sec = 0;
+            @Override
+            public void onTick(long l) {
+                countTime += 1000;
+
+                sec++;
+                if (sec>59) {
+                    min++;
+                    sec=0;
+                }
+                timeTableTextView.setTextColor(Color.RED);
+                timeTableTextView.setText(String.format(Locale.getDefault(),"%02d:%02d",min,sec));
+            }
+
+            @Override
+            public void onFinish() {
+            }
+
+        }.start();
+        return true;
     }
 }

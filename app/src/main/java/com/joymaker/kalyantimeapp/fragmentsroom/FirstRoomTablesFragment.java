@@ -1,10 +1,14 @@
 package com.joymaker.kalyantimeapp.fragmentsroom;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 
 import com.joymaker.kalyantimeapp.alertdialog.AlertDialogKalyanIsDone;
 import com.joymaker.kalyantimeapp.alertdialog.AlertDialogKalyanIsFree;
@@ -18,6 +22,7 @@ import com.joymaker.kalyantimeapp.table.Table;
 import com.joymaker.kalyantimeapp.statetable.TableIsDone;
 import com.joymaker.kalyantimeapp.statetable.TableIsFree;
 import com.joymaker.kalyantimeapp.statetable.TableIsMake;
+import com.joymaker.kalyantimeapp.utills.LogUtills;
 
 import java.util.ArrayList;
 
@@ -55,13 +60,12 @@ public class FirstRoomTablesFragment extends android.support.v4.app.Fragment {
                             DialogOrder dialogOrder = new DialogOrder();
                             dialogOrder.setTable(tab);
                             dialogOrder.show(getFragmentManager(),"order");
-
                             break;
                         case "Подготовка":
                             AlertDialog alertDialogIsDone = AlertDialogKalyanIsDone.getAlertDialogIsDone(getContext(),tab);
                             alertDialogIsDone.show();
                             break;
-                        case "Кальян готов":
+                        case "Готов":
                             alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
                             alertDialogSerive.show();
                             break;
@@ -86,6 +90,8 @@ public class FirstRoomTablesFragment extends android.support.v4.app.Fragment {
                             alertDialogSerive.show();
                             break;
                         case "Сервис 6":
+                            String stop = ((Table) tab).stopTimerService();
+                            LogUtills.getInstance().writeLog(getContext(), stop, Context.MODE_APPEND);
                             AlertDialog alertDialogKalyanIsFree = AlertDialogKalyanIsFree.getAlertDialogIsFree(getContext(),tab);
                             alertDialogKalyanIsFree.show();
                             break;

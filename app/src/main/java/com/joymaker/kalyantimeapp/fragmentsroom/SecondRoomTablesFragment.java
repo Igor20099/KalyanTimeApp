@@ -1,6 +1,7 @@
 package com.joymaker.kalyantimeapp.fragmentsroom;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -20,6 +21,7 @@ import com.joymaker.kalyantimeapp.table.Table;
 import com.joymaker.kalyantimeapp.statetable.TableIsDone;
 import com.joymaker.kalyantimeapp.statetable.TableIsFree;
 import com.joymaker.kalyantimeapp.statetable.TableIsMake;
+import com.joymaker.kalyantimeapp.utills.LogUtills;
 
 import java.util.ArrayList;
 
@@ -62,7 +64,7 @@ public class SecondRoomTablesFragment extends Fragment {
                             AlertDialog alertDialog = AlertDialogKalyanIsDone.getAlertDialogIsDone(getContext(),tab);
                             alertDialog.show();
                             break;
-                        case "Кальян готов":
+                        case "Готов":
                             alertDialogSerive = AlertDialogStartService.getAlertDialogStartService(getContext(),tab);
                             alertDialogSerive.show();
                             break;
@@ -87,6 +89,8 @@ public class SecondRoomTablesFragment extends Fragment {
                             alertDialogSerive.show();
                             break;
                         case "Сервис 6":
+                            String stop = ((Table) tab).stopTimerService();
+                            LogUtills.getInstance().writeLog(getContext(), stop, Context.MODE_APPEND);
                             AlertDialog alertDialogKalyanIsFree = AlertDialogKalyanIsFree.getAlertDialogIsFree(getContext(),tab);
                             alertDialogKalyanIsFree.show();
                             break;

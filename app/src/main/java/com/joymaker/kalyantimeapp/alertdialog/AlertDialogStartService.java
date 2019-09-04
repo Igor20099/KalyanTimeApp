@@ -8,6 +8,7 @@ import com.joymaker.kalyantimeapp.statetable.TableIsFree;
 import com.joymaker.kalyantimeapp.statetable.TableService;
 import com.joymaker.kalyantimeapp.table.ITable;
 import com.joymaker.kalyantimeapp.table.Table;
+import com.joymaker.kalyantimeapp.utills.LogUtills;
 
 public class AlertDialogStartService {
     static  String serv;
@@ -46,13 +47,20 @@ public class AlertDialogStartService {
                 }).setPositiveButton("Начать", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        if(!((Table)table).getTstate().equals("Готов")) {
+                            String stop = ((Table) table).stopTimerService();
+                            LogUtills.getInstance().writeLog(context, stop, Context.MODE_APPEND);
+                        }
                         ((Table) table).setTableState(new TableService());
                         ((Table) table).startState();
+                        String data = String.format(" | %s | %s | Статус: Начало %s\n",((Table)table).getRoomTables(),((Table)table).getNameTable(),serv);
+                        LogUtills.getInstance().writeLog(context,data,Context.MODE_APPEND);
                     }
                 })
                 .setNeutralButton("Стол свободен", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         AlertDialog alertDialogKalyanIsFree = AlertDialogKalyanIsFree.getAlertDialogIsFree(context,table);
                         alertDialogKalyanIsFree.show();
                     }
